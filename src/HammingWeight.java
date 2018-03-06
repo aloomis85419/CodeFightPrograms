@@ -5,7 +5,7 @@ public class HammingWeight {
 
     public static void main(String[]args){
         HammingWeight hw = new HammingWeight();
-        System.out.println(hw.rangeBitCount(0,10));
+        System.out.println(hw.rangeBitCount(3,10));
     }
 
     int rangeBitCount(int a, int b) {
