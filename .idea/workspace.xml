@@ -743,7 +743,7 @@
       <workItem from="1520107312487" duration="26217000" />
       <workItem from="1520194948371" duration="9084000" />
       <workItem from="1520298703724" duration="8929000" />
-      <workItem from="1520311102305" duration="6441000" />
+      <workItem from="1520311102305" duration="6476000" />
     </task>
     <task id="LOCAL-00001" summary="Some files have errors.">
       <created>1520317342207</created>
@@ -759,11 +759,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520317469729</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Some files have errors.">
+      <created>1520317576906</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1520317576906</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106922000" />
+    <option name="totallyTimeSpent" value="106957000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
