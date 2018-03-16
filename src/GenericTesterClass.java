@@ -166,5 +166,87 @@ public class GenericTesterClass {
 		return count;
 	}
 
+	int[] weakNumbers(int n) {
+		int[]sub  = new int[n];
+		int i = n;
+		int j = 1;
+		while(i >= j)
+		{
+			sub[i-1] = i;
+			sub[j - 1] = j;
+			i--;
+			j++;
+		}
+		return getWeakness(sub);
+	}
+
+	int[]getWeakness(int[]sub)
+	{
+		int[]weaknesses = new int[sub.length];
+		int count = 0;
+		int i = sub.length;
+		int j = i;
+		int index = sub.length-1;
+		while(i > 1)
+		{
+			if(j == 0) {
+				weaknesses[index] = count;
+				i--;
+				j = i;
+				index--;
+				count = 0;
+			}
+			if (i%j == 0){
+				count++;
+			}
+			j--;
+		}
+		weaknesses[0] = 1;
+		return finalWeakness(weaknesses);
+	}
+
+	int[]finalWeakness(int[]weak)
+	{
+		int[]SpecificAndMaximal = new int[2];
+		int countNums = 0;
+		int i = weak.length - 1;
+		int j = i-1;
+		int index = weak.length-1;
+		while(j > 0){
+			if(weak[j] > weak[i])countNums++;
+			j--;
+		}
+		SpecificAndMaximal[0] = countNums;
+		countNums = 0;
+		i = weak.length - 1;
+		j = i-1;
+
+		while(i >= 1)
+		{
+
+			if(j == 0){
+				weak[index] = countNums;
+				i--;
+				j = i-1;
+				index--;
+				countNums = 0;
+			}
+			if (weak[j] > weak[i])
+			{
+				countNums++;
+			}
+			j--;
+		}
+		System.out.println(Arrays.toString(weak));
+		System.out.println("Weak: "+Arrays.toString(weak));
+		i = weak.length - 1;
+		while(i > 0){
+			if(weak[i] == 2)countNums++;
+			i--;
+		}
+		SpecificAndMaximal[1] = countNums;
+		return SpecificAndMaximal;
+	}
+
 
 }
