@@ -13,7 +13,7 @@ public class SequenceAlignmentProblem {
 		Integer[][]seqAlign;
 		Integer[][]initMatrix;
 		System.out.println("+++++++++++++++++++++++++++");
-		System.out.println("Welcome to Sequence Aigner");
+		System.out.println("Welcome to Sequence Aligner");
 		System.out.println("+++++++++++++++++++++++++++\n");
 		System.out.println("Input restrictions: Must enter the larger of two sequences first.");
 		System.out.println("Enter genetic sequence 1 followed by a dash: ");
