@@ -15,14 +15,14 @@ public class LPPhase1 {
 	 */
 	public static void main(String[]args){
 		Double cx,cy,vx,vy,dx,dy,wx,wy;
-		int [] a1, a2, a3, b1, b2, b3, b4;
-		a1 = new int[]{1,-1};
-		a2 = new int[]{2,1};
-		a3 = new int[]{-1,3};
-		b1 = new int[]{-1,-1};
-		b2 = new int[]{2,0};
-		b3 = new int[]{-1,1};
-		b4 = new int[]{-3,0};
+		Double[]a1,a2,a3,b1,b2,b3,b4,cCenter,dCenter;
+		a1 = new Double[]{1.0,-1.0};
+		a2 = new Double[]{2.0,1.0};
+		a3 = new Double[]{-1.0,3.0};
+		b1 = new Double[]{-1.0,-1.0};
+		b2 = new Double[]{2.0,0.0};
+		b3 = new Double[]{-1.0,1.0};
+		b4 = new Double[]{-3.0,0.0};
 		String filename = "LPphase1Input.txt";
 		FileWriter fw;
 		PrintWriter writer;
@@ -46,12 +46,21 @@ public class LPPhase1 {
 			wx = sysIn.nextDouble();
 			System.out.print("Enter a value for wy: ");
 			wy = sysIn.nextDouble();
-
+			cCenter = new Double[]{cx,cy};
+			dCenter = new Double[]{dx,dy};
 			fw.close();
 			writer.close();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Double[][]generateTableau(int rows, int columns){
+		Double[][]tableau = new Double[rows][columns];
+
+
+
+		return tableau;
 	}
 }
