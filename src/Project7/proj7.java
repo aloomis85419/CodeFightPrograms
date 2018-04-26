@@ -23,7 +23,10 @@ public class proj7{
 	private static int items;
 	private static int max;
 	private static double bound;
-
+	/*
+		TODO: Check out the formatted print method at the bottom of the file. This prints all node information required for the assignment.
+		TODO: Add logic necessary so that the nodes store the items in their itemsInNode list.
+	 */
 	public static  void main(String[]args){
 		proj7 proj7 = new proj7();
 		String filename;
@@ -74,7 +77,6 @@ public class proj7{
 			excludeForWeights.add(0);
 		}
 		proj7.executeBranchAndBoundKnapsack();
-
 	}
 
 	private void printFormattedKnapsack(ArrayList<Integer>list,ArrayList<Integer>list2,int capacity, int items){
@@ -120,7 +122,10 @@ public class proj7{
 		int weightsForExclude;
 		int profitsForInclude;
 		int profitsForExclude;
-		KnapsackNode parent;
+		int parentNodeNum = 1;
+		int leftChildNodeNum = 2;
+		int rightChildNodeNum = 3;
+		KnapsackNode parent = new KnapsackNode();
 		KnapsackNode left;
 		KnapsackNode right;
 		max = 15;
@@ -133,16 +138,18 @@ public class proj7{
 			calculateValuesAtCurrentNode(weightsList, profitList, excludeForBound , max);
 			calculateWeightsAndProfitsForNode(weightsList,profitList,excludeForWeights);
 			boundInclude = bound;
+			printFormattedParentInformation(parentNodeNum,items,parent);
 			weightsForInclude = accumulatedWeight;
 			profitsForInclude = accumulatedProfit;
 			//add to nodes here
-			left = new KnapsackNode(items+1,accumulatedWeight,accumulatedProfit,bound);
-			System.out.println(left.toString());
+			right = new KnapsackNode(items+1,accumulatedWeight,accumulatedProfit,boundInclude);
 			excludeForBound.set(i, 0);
 			excludeForWeights.set(i,0);
 			calculateValuesAtCurrentNode(weightsList, profitList, excludeForBound , max);
 			calculateWeightsAndProfitsForNode(weightsList,profitList,excludeForWeights);
 			boundExclude = bound;
+			left = new KnapsackNode(items+1,accumulatedWeight,accumulatedProfit,boundExclude);
+
 			weightsForExclude = accumulatedWeight;
 			profitsForExclude = accumulatedProfit;
 			//add to nodes here
@@ -151,12 +158,16 @@ public class proj7{
 			{
 				excludeForBound.set(i, 1);
 				excludeForWeights.set(i,1);
+				printFormattedRightChildInformation(rightChildNodeNum,items,right);
 			}
 			else if(boundExclude > boundInclude)
 			{
+				printFormattedLeftChildInformation(leftChildNodeNum,items,left);
 				continue;
 			}
-
+			parentNodeNum+=2;
+			leftChildNodeNum+=2;
+			rightChildNodeNum+=2;
 		}
 	}
 
@@ -240,10 +251,6 @@ public class proj7{
 		}
 	}
 
-
-
-
-
 	public ArrayList<KnapsackNode>getSortedKnapsackNodeList(ArrayList<Integer>weights,ArrayList<Integer>profit,int itemCount){
 		ArrayList<KnapsackNode>items = new ArrayList<>();
 		for (int i = 0; i < itemCount; i++){
@@ -251,6 +258,19 @@ public class proj7{
 		}
 		Collections.sort(items,new KnapsackNodeComparator());
 		return items;
+	}
+
+	public static void printFormattedParentInformation(int parentNodeNum,int itemLevel,KnapsackNode parent) {
+		System.out.println("Exploring <Node" + parentNodeNum + ":\t" + "items:" + parent + "level:" + itemLevel + " profit: " + parent.profit + " weight: " + parent.weight + " bound: " + parent.bound);
+	}
+
+	public static void printFormattedLeftChildInformation(int leftChildNodeNum,int itemLevel,KnapsackNode left){
+		System.out.println("Left child is <Node" +leftChildNodeNum+":\t"+"items:"+left+ "level:"+itemLevel+" profit: "+left.profit+" weight: "+left.weight+" bound: "+left.bound);
+	}
+
+	public static void printFormattedRightChildInformation(int rightChildNodeNum,int itemLevel,KnapsackNode right){
+		System.out.println("Right child is <Node" + rightChildNodeNum + ":\t" + "items:" + right + "level:" + itemLevel + " profit: " + right.profit + " weight: " + right.weight + " bound: " + right.bound);
+		//TODO: using node is innapropriate for the assignment. Need to list item composition. The proper way to do this is to access KnapsackNodes itemsInNode list. This list will need to be filled for evey node.
 	}
 
 
