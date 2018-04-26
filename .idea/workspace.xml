@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6f6139e2-8389-48dc-8ed4-2e5dc83e4519" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Project7/KnapsackNode.java" afterPath="$PROJECT_DIR$/src/Project7/KnapsackNode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Project7/proj7.java" afterPath="$PROJECT_DIR$/src/Project7/proj7.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -25,8 +26,8 @@
       <file leaf-file-name="KnapsackNode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Project7/KnapsackNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
-              <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+            <state relative-caret-position="3">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -35,8 +36,8 @@
       <file leaf-file-name="proj7.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Project7/proj7.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2436">
-              <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+            <state relative-caret-position="25">
+              <caret line="131" column="51" lean-forward="false" selection-start-line="131" selection-start-column="51" selection-end-line="131" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -138,8 +139,8 @@
         <option value="$PROJECT_DIR$/src/KnapsackNodeComparator.java" />
         <option value="$PROJECT_DIR$/src/Project7/KnapsackNodeComparator.java" />
         <option value="$PROJECT_DIR$/src/Project7/Main.java" />
-        <option value="$PROJECT_DIR$/src/Project7/KnapsackNode.java" />
         <option value="$PROJECT_DIR$/src/Project7/proj7.java" />
+        <option value="$PROJECT_DIR$/src/Project7/KnapsackNode.java" />
       </list>
     </option>
   </component>
@@ -795,7 +796,7 @@
       <workItem from="1524674881661" duration="8414000" />
       <workItem from="1524688513137" duration="1209000" />
       <workItem from="1524694790669" duration="6648000" />
-      <workItem from="1524714500806" duration="14689000" />
+      <workItem from="1524714500806" duration="15035000" />
     </task>
     <task id="LOCAL-00001" summary="Some files have errors.">
       <created>1520317342207</created>
@@ -895,11 +896,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524725707667</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="There is currently a logic error causing values in nodes to be set to null;">
+      <created>1524729283114</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1524729283114</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="405449000" />
+    <option name="totallyTimeSpent" value="405795000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -912,6 +920,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3872" height="2192" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -923,7 +932,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32998943" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32998943" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -953,7 +962,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Some files have errors." />
-    <option name="LAST_COMMIT_MESSAGE" value="Some files have errors." />
+    <MESSAGE value="There is currently a logic error causing values in nodes to be set to null;" />
+    <option name="LAST_COMMIT_MESSAGE" value="There is currently a logic error causing values in nodes to be set to null;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1197,14 +1207,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Project7/KnapsackNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Project7/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="933">
@@ -1221,10 +1223,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Project7/KnapsackNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Project7/proj7.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2436">
-          <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+        <state relative-caret-position="25">
+          <caret line="131" column="51" lean-forward="false" selection-start-line="131" selection-start-column="51" selection-end-line="131" selection-end-column="51" />
           <folding />
         </state>
       </provider>

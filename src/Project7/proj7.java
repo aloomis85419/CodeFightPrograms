@@ -70,8 +70,7 @@ public class proj7{
 		}
 		proj7.printFormattedKnapsack(profitList,weightsList,maxWeight,itemCount);
 		System.out.println("Beginning exploration of the possibilities tree...");
-		System.out.println(weightsList);
-		System.out.println(profitList);
+		System.out.println();
 		for(int i = 0; i< weightsList.size();i++){
 			excludeForBound.add(1);
 			excludeForWeights.add(0);
@@ -131,7 +130,6 @@ public class proj7{
 		max = 15;
 
 		for(int i = 0; i < weightsList.size();i++){
-
 			items++;
 			excludeForBound.set(i, 1);
 			excludeForWeights.set(i,1);

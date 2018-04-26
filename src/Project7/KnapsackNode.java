@@ -8,7 +8,6 @@ class KnapsackNode<T> {
 
 	protected Integer itemID,weight;
 	Double valuePerWeight,bound, profit;
-	String leftOrRight;
 	ArrayList<KnapsackNode>itemsInNode = new ArrayList<>();
 	KnapsackNode<T>parent = null;
 	List<KnapsackNode<T>> children = new LinkedList<>();
