@@ -1,28 +1,26 @@
 package Project7;
 
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 /**
  * @Author: Aaron Loomis, Manoj Vasa
  */
 public class proj7{
+
 	private static ArrayList<Integer> weightsList;
 	private static ArrayList<Integer> profitList;
-	private static ArrayList<Integer> excludeForWeights = new ArrayList<>();
-	private static ArrayList<Integer> excludeForBound = new ArrayList<>(); //starts at all 1's
-	private static int accumulatedWeightForBound;
-	private static int accumulatedProfitForBound;
-	private static int accumulatedWeight;
-	private static int accumulatedProfit;
-	private static int items;
-	private static int max;
-	private static double bound;
+	ArrayList<KnapsackNode>items = new ArrayList<>();
+	double achievableProfit = 0;
+	boolean weightExceeded = false;
+
 	/*
 		TODO: Check out the formatted print method at the bottom of the file. This prints all node information required for the assignment.
 		TODO: Add logic necessary so that the nodes store the items in their itemsInNode list.
@@ -68,14 +66,13 @@ public class proj7{
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println(profitList);
+		System.out.println(weightsList);
+		proj7.buildItemsList(weightsList,profitList);
+		proj7.sortItemListByValuePerWeight();
+		System.out.println(proj7.items+"\n");
 		proj7.printFormattedKnapsack(profitList,weightsList,maxWeight,itemCount);
-		System.out.println("Beginning exploration of the possibilities tree...");
-		System.out.println();
-		for(int i = 0; i< weightsList.size();i++){
-			excludeForBound.add(1);
-			excludeForWeights.add(0);
-		}
-		proj7.executeBranchAndBoundKnapsack();
+		proj7.executeBranchAndBoundKnapsack(maxWeight);
 	}
 
 	private void printFormattedKnapsack(ArrayList<Integer>list,ArrayList<Integer>list2,int capacity, int items){
@@ -111,165 +108,116 @@ public class proj7{
 	}
 
 	/*
-		This method excecuted branch and valuePerWeight on the 0-1 Knapsack problem using a custom Project7.KnapsackNode class and a priority queue
+		This method excecuted branch and valuePerWeight on the 0-1 Knapsack problem using a custom proj7.KnapsackNode class and a priority queue
 	 */
-	private static void executeBranchAndBoundKnapsack(){
-		items = 0;
-		double boundInclude;
-		double boundExclude;
-		int weightsForInclude;
-		int weightsForExclude;
-		int profitsForInclude;
-		int profitsForExclude;
-		int parentNodeNum = 1;
-		int leftChildNodeNum = 2;
-		int rightChildNodeNum = 3;
-		KnapsackNode parent = new KnapsackNode();
-		KnapsackNode left;
-		KnapsackNode right;
-		max = 15;
-
-		for(int i = 0; i < weightsList.size();i++){
-			items++;
-			excludeForBound.set(i, 1);
-			excludeForWeights.set(i,1);
-			calculateValuesAtCurrentNode(weightsList, profitList, excludeForBound , max);
-			calculateWeightsAndProfitsForNode(weightsList,profitList,excludeForWeights);
-			boundInclude = bound;
-			printFormattedParentInformation(parentNodeNum,items,parent);
-			weightsForInclude = accumulatedWeight;
-			profitsForInclude = accumulatedProfit;
-			//add to nodes here
-			right = new KnapsackNode(items+1,accumulatedWeight,accumulatedProfit,boundInclude);
-			excludeForBound.set(i, 0);
-			excludeForWeights.set(i,0);
-			calculateValuesAtCurrentNode(weightsList, profitList, excludeForBound , max);
-			calculateWeightsAndProfitsForNode(weightsList,profitList,excludeForWeights);
-			boundExclude = bound;
-			left = new KnapsackNode(items+1,accumulatedWeight,accumulatedProfit,boundExclude);
-
-			weightsForExclude = accumulatedWeight;
-			profitsForExclude = accumulatedProfit;
-			//add to nodes here
-
-			if(boundInclude > boundExclude)
-			{
-				excludeForBound.set(i, 1);
-				excludeForWeights.set(i,1);
-				printFormattedRightChildInformation(rightChildNodeNum,items,right);
+	private void executeBranchAndBoundKnapsack(int maxWeight) {
+		PriorityQueue<KnapsackNode> pq = new PriorityQueue<>(new KnapsackNodeComparator());//Use to order nodes by their calculated bounds allowing for easy tracking of existing bounds.
+		KnapsackNode parent = new KnapsackNode(),leftchild = new KnapsackNode(),rightchild = new KnapsackNode(),maxnode = new KnapsackNode();
+		parent.setNodeLevel(-1);
+		parent.profit = parent.weight = 0;
+		double maxProfit = 0;
+		int nodeNum = 0;
+		pq.add(parent);
+		System.out.println("Beginning Exploration....\n");
+		while(!pq.isEmpty()){
+			parent = pq.poll();
+			if (parent.nodeLevel == -1){
+				leftchild.setNodeLevel(0);
+				rightchild.setNodeLevel(0);
 			}
-			else if(boundExclude > boundInclude)
-			{
-				printFormattedLeftChildInformation(leftChildNodeNum,items,left);
-				continue;
-			}
-			parentNodeNum+=2;
-			leftChildNodeNum+=2;
-			rightChildNodeNum+=2;
-		}
-	}
 
-	private static void calculateValuesAtCurrentNode(ArrayList<Integer>weights,ArrayList<Integer>profit,ArrayList<Integer>exclude,int max){
-		int weightRemaining = max;
-		accumulatedWeightForBound = 0;
-		accumulatedProfitForBound = 0;
-		bound = 0;
-		boolean isFeasible = verifyWeightOfIncludedItems(weights,excludeForWeights);
-		if(isFeasible)
-		{
-			for (int i = 0; i < weights.size(); i++)
-			{
-				if(exclude.get(i) == 0)
-				{
-					continue;
-				}
-				else
-				{
-					accumulatedWeightForBound += weights.get(i);
-					if(accumulatedWeightForBound <= max)
-					{
-						weightRemaining -= weights.get(i);
-						accumulatedProfitForBound += profit.get(i);
-						bound = accumulatedProfitForBound;
-					}
-					else if(accumulatedWeightForBound > max)
-					{
-						accumulatedWeightForBound -= weights.get(i);
-						bound = accumulatedProfitForBound + (profit.get(i)/weights.get(i))*weightRemaining;
-						break;
-					}
-				}
+			if (parent.nodeLevel == items.size()-2)continue;
+			leftchild.nodeLevel = parent.nodeLevel+1;
+			rightchild.nodeLevel = parent.nodeLevel+1;
+			leftchild.profit = parent.profit;
+			leftchild.weight = parent.weight;
+			rightchild.profit = parent.profit + items.get(rightchild.nodeLevel).profit;
+			rightchild.weight = parent.weight + items.get(rightchild.nodeLevel).weight;
+			if (rightchild.weight <= maxWeight && rightchild.profit > maxProfit){
+				maxnode = rightchild;
+				maxProfit = rightchild.profit;
+			}
+			else if (leftchild.weight <= maxWeight && leftchild.profit > maxProfit){
+				maxnode = leftchild;
+				maxProfit = leftchild.profit;
+			}
+			leftchild.bound = calculateBound(leftchild,maxWeight);
+			rightchild.bound = calculateBound(rightchild,maxWeight);
+			System.out.print("Exploring ");
+			printFormattedNodeInformation(parent,nodeNum);
+			System.out.print("Left child is ");
+			printFormattedNodeInformation(leftchild,nodeNum+1);
+			System.out.print("Right child is ");
+			printFormattedNodeInformation(rightchild,nodeNum+2);
+			if (rightchild.bound > maxProfit){
+				pq.add(rightchild);
+				System.out.print("Right child chosen: ");
+				printFormattedNodeInformation(leftchild,nodeNum+1);
+				System.out.println("explore further\n");
+			}
+			else if (leftchild.bound > maxProfit){
+				pq.add(leftchild);
+				System.out.print("Left child chosen: ");
+				printFormattedNodeInformation(rightchild,nodeNum+2);
+				System.out.println("explore further\n");
 			}
 		}
-		else
-		{
-			System.out.println("not fesible\n\n");
-		}
+		System.out.println("\nMax Profit: "+maxProfit);
 	}
 
-	private static boolean verifyWeightOfIncludedItems(ArrayList<Integer>weights, ArrayList<Integer>exclude)
-	{
-		int thisWeight = 0;
-		boolean isFeasible = true;
-		for(int i = 0; i< exclude.size();i++)
-		{
-			if(exclude.get(i) == 1){
-				thisWeight += weights.get(i);
+	public static void printFormattedNodeInformation(KnapsackNode knapsackNode, int nodeNum) {
+		System.out.println( "<Node "+nodeNum+":\titems: "+knapsackNode.itemsInNode+" level: "+knapsackNode.nodeLevel+" profit: "+knapsackNode.profit+" weight: "+knapsackNode.weight+" bound: "+knapsackNode.getBound());
+	}
+
+	public void sortItemListByValuePerWeight(){
+		int i = 0;
+		double max = 0;
+		int indexOfMax = 0;
+		ArrayList<KnapsackNode>temp = new ArrayList<>();
+		while(temp.size() != items.size()){
+			if (items.get(i).valuePerWeight > max && !temp.contains(items.get(i))){
+				max = items.get(i).valuePerWeight;
+				indexOfMax = i;
+			}
+			if (i == items.size()-1 && !temp.contains(items.get(i))){
+				temp.add(items.get(indexOfMax));
+				max = 0;
+				i = 0;
+			}
+			else{
+				i++;
 			}
 		}
-
-		if(thisWeight > max){
-			return false;
+		for (i = 0; i < temp.size(); i++){
+			temp.get(i).setItemID(i+1);
 		}
-		return isFeasible;
+		items.clear();
+		items.addAll(temp);
 	}
 
-	private static void calculateWeightsAndProfitsForNode(ArrayList<Integer>weights, ArrayList<Integer>profits, ArrayList<Integer>exclude){
-		accumulatedWeight = 0;
-		accumulatedProfit = 0;
-		for(int i = 0;i < exclude.size();i++)
-		{
-			if(exclude.get(i) == 1)
-			{
-				accumulatedWeight += weights.get(i);
-				if(accumulatedWeight <= max)
-				{
-					accumulatedProfit += profits.get(i);
-				}
-				else if(accumulatedWeight > max)
-				{
-					accumulatedWeightForBound -= weights.get(i);
-					break;
-				}
-			}
-			else
-			{
-				continue;
-			}
+	public void buildItemsList(ArrayList<Integer>weightsList,ArrayList<Integer>profits){
+		for (int i = 0; i < weightsList.size(); i++){
+			int valuePerWeight = profits.get(i)/weightsList.get(i);
+			items.add(new KnapsackNode(i+1,weightsList.get(i),profitList.get(i),valuePerWeight));
 		}
 	}
 
-	public ArrayList<KnapsackNode>getSortedKnapsackNodeList(ArrayList<Integer>weights,ArrayList<Integer>profit,int itemCount){
-		ArrayList<KnapsackNode>items = new ArrayList<>();
-		for (int i = 0; i < itemCount; i++){
-			items.add(new KnapsackNode(i+1,weights.get(i),profit.get(i),(profit.get(i)/weights.get(i))));
+	double calculateBound(KnapsackNode child, int maxWeight){
+		double bound = child.profit;
+		int weightSum = child.weight;
+		int i = child.nodeLevel;
+		if (child.weight >= maxWeight){
+			System.out.println("pruned...exceeded max weight\n");
+			return 0;//weight too large. Do not pursue.
 		}
-		Collections.sort(items,new KnapsackNodeComparator());
-		return items;
+		while (weightSum + items.get(i).weight <= maxWeight && i < items.size()/2){
+			bound += items.get(i).profit;
+			weightSum += items.get(i).weight;
+			i++;
+		}
+		if (weightSum < maxWeight){
+			bound += (items.get(i).valuePerWeight*(maxWeight - weightSum));
+		}
+		return bound;
 	}
-
-	public static void printFormattedParentInformation(int parentNodeNum,int itemLevel,KnapsackNode parent) {
-		System.out.println("Exploring <Node" + parentNodeNum + ":\t" + "items:" + parent + "level:" + itemLevel + " profit: " + parent.profit + " weight: " + parent.weight + " bound: " + parent.bound);
-	}
-
-	public static void printFormattedLeftChildInformation(int leftChildNodeNum,int itemLevel,KnapsackNode left){
-		System.out.println("Left child is <Node" +leftChildNodeNum+":\t"+"items:"+left+ "level:"+itemLevel+" profit: "+left.profit+" weight: "+left.weight+" bound: "+left.bound);
-	}
-
-	public static void printFormattedRightChildInformation(int rightChildNodeNum,int itemLevel,KnapsackNode right){
-		System.out.println("Right child is <Node" + rightChildNodeNum + ":\t" + "items:" + right + "level:" + itemLevel + " profit: " + right.profit + " weight: " + right.weight + " bound: " + right.bound);
-		//TODO: using node is innapropriate for the assignment. Need to list item composition. The proper way to do this is to access KnapsackNodes itemsInNode list. This list will need to be filled for evey node.
-	}
-
-
 }

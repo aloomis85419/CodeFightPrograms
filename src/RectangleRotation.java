@@ -1,34 +1,49 @@
+import com.sun.org.apache.regexp.internal.RE;
+
+import java.util.Arrays;
+
 /**
  * Created by aloom on 4/5/2018.
  */
 public class RectangleRotation {
-	double[][]rotationMatrix;
-	public static void main(String[]args){
-		RectangleRotation rr = new RectangleRotation();
-		rr.initializeRotationMatrix();
-	}
+	int[]xPoints;
+	int[]yPoints;
+	public static void main(String[]args)
+	{
+		RectangleRotation rectangleRotation = new RectangleRotation();
+		rectangleRotation.setxPoints(6);
+		rectangleRotation.setyPoints(4);
+		int[][]points = new int[2][4];
+		points = rectangleRotation.fillPoints(points);
 
-	void initializeRotationMatrix(){
-		rotationMatrix = new double[2][2];
-		rotationMatrix[0][0] = 	Math.cos((Math.PI/4));
-		rotationMatrix[0][1] = 0 - Math.sin((Math.PI/4));
-		rotationMatrix[1][0] = Math.cos((Math.PI/4));
-		rotationMatrix[1][1] = Math.sin((Math.PI/4));
-		printMatrix(rotationMatrix);
-	}
-
-	int rectangleRotation(int a, int b){
-		int pointCount = 0;
-
-		return pointCount;
-	}
-
-	public void printMatrix(double[][]matrix){
-		for (int i = 0; i < matrix.length; i++){
-			for (int j = 0; j < matrix.length; j++){
-				System.out.print(matrix[i][j]+"\t");
-			}
+		for (int i = 0; i < points.length; i++){
+			for (int j = 0; j < points.length; j++)System.out.print(points[i][j]+" ");
 			System.out.println();
 		}
 	}
+
+	public void setxPoints(int width)//width = a
+	{
+		xPoints = new int[2];
+		xPoints[0] = 0 - width;
+		xPoints[1] = width;
+		System.out.println("x points: "+Arrays.toString(xPoints));
+	}
+
+	public void setyPoints(int height){
+		yPoints = new int[2];
+		yPoints[0] = 0 - height;
+		yPoints[1] = height;
+		System.out.println("y points: "+Arrays.toString(yPoints));
+	}
+
+	public int[][] fillPoints(int[][]points){
+		for (int i = 0; i < points.length; i++){
+		}
+		return points;
+	}
+
+
+
+
 }
