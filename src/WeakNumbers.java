@@ -56,6 +56,7 @@ public class WeakNumbers {
 		weakestNums[1] = countOccur(weakest);
 		return weakestNums;
 	}
+
 	/*
 		count the number of occurrences of the maximal weakness
 	 */
